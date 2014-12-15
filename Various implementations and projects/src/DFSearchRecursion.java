@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -17,23 +18,24 @@ public class DFSearchRecursion<T> implements ISearchStrategy<T> {
 		this.start = start;
 	}
 	
-	public boolean search(T goal) {
+	public Iterator<INode<T>> search(T goal) {
 		return search(goal, start);
 	}
 	
-	private boolean search(T goal, INode<T> node) {
+	private Iterator<INode<T>> search(T goal, INode<T> node) {
 		// Base case is trivial: The first node is the goal.
 		if (node.compareTo(goal) > 0) 
-			return true;
+			return visitedNodes.iterator();
 		
 		visitedNodes.add(node);
 		for (INode<T> adjNode : node.neighbours()) {
 			if (!visitedNodes.contains(adjNode)) {
-				if (search(goal, adjNode)) return true;
+				if ( (search(goal, adjNode) != null) )
+					return visitedNodes.iterator();
 			}
 		}
 		// There was no solution in the graph.
-		return false;
+		return null;
 	}
 
 }

@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -21,7 +22,7 @@ public class DFSearch<T> implements ISearchStrategy<T> {
 		this.start = start;
 	}
 
-	public boolean search(T goal) {
+	public Iterator<INode<T>> search(T goal) {
 		// The stack helps us to keep track of all unvisited nodes and as well as 
 		// makes it possible to backtrack from a branch where no "solution" could be found.
 		Stack<INode<T>> unvisitedNodes = new Stack<INode<T>>();
@@ -33,7 +34,7 @@ public class DFSearch<T> implements ISearchStrategy<T> {
 				
 				// Goal node?
 				if (current.compareTo(goal) > 0) {
-					return true;
+					return visitedNodes.iterator();
 				}
 				
 				// add to visited nodes
@@ -43,6 +44,6 @@ public class DFSearch<T> implements ISearchStrategy<T> {
 					unvisitedNodes.push(node);
 			}
 		}
-		return false;
+		return null;
 	}
 }

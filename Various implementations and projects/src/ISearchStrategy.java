@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /**
  *=============================================================================
  *
@@ -8,5 +10,5 @@
 
 public interface ISearchStrategy<T> {
 	
-	boolean search(T goal);
+	Iterator<INode<T>> search(T goal);
 }
